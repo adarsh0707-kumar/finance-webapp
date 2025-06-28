@@ -2,7 +2,7 @@
 export default function Home() {
   return(
     <div>
-      <p>This is an authenticated route</p>
+      Dashboard Layout
     </div>
   )
 }
