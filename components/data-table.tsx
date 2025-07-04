@@ -1,8 +1,18 @@
 "use client"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 
 import * as React from "react"
+import { Trash } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 import {
   ColumnDef,
@@ -17,16 +27,6 @@ import {
   Row,
 
 } from "@tanstack/react-table"
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { Trash } from "lucide-react"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -87,6 +87,10 @@ export function DataTable<TData, TValue>({
             className="bg-red-800 text-bold text-white ml-auto hover:bg-red-800/90 hover:text-white"
             size="sm"
             variant="outline"
+            onClick={() => {
+              onDelete(table.getFilteredSelectedRowModel().rows)
+              table.resetRowSelection()
+            }}
           > 
             <Trash className="size-4"/>
             Delete ({
