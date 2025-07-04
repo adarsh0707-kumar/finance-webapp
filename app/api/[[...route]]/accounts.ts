@@ -14,43 +14,40 @@ import { accounts, insertAccountSchema } from "@/db/schema";
 
 
 const app = new Hono()
-  .get(
-    "/",
-    clerkMiddleware(),
-    async (c) => {
-      const auth = getAuth(c);
-      if (!auth?.userId) {
-        return c.json(
-          {
-            error: "Unauthorized",
-          },
-          401
-        );
-      }
-
-      const data = await db
-        .select({
-          id: accounts.id,
-          name: accounts.name,
-        })
-        .from(accounts)
-        .where(eq(accounts.userId, auth.userId));
-
-      return c.json({ data });
+  .get("/", clerkMiddleware(), async (c) => {
+    const auth = getAuth(c);
+    if (!auth?.userId) {
+      return c.json(
+        {
+          error: "Unauthorized",
+        },
+        401
+      );
     }
-  )
+
+    const data = await db
+      .select({
+        id: accounts.id,
+        name: accounts.name,
+      })
+      .from(accounts)
+      .where(eq(accounts.userId, auth.userId));
+
+    return c.json({ data });
+  })
 
   .post(
     "/",
     clerkMiddleware(),
-    zValidator("json",
+    zValidator(
+      "json",
       insertAccountSchema.pick({
-        name: true
+        name: true,
       })
     ),
     async (c) => {
       const auth = getAuth(c);
-      const values = c.req.valid("json")
+      const values = c.req.valid("json");
 
       if (!auth?.userId) {
         return c.json(
@@ -62,33 +59,35 @@ const app = new Hono()
       }
 
       const [data] = await db
-        .insert(accounts).values({
+        .insert(accounts)
+        .values({
           id: createId(),
           userId: auth.userId,
-          ...values
-        }).returning()
-      
-      return c.json({ data })
-      
+          ...values,
+        })
+        .returning();
+
+      return c.json({ data });
     }
   )
+
   .post(
     "/bulk-delete",
     clerkMiddleware(),
     zValidator(
       "json",
       z.object({
-        ids: z.array(z.string())
-      }),
+        ids: z.array(z.string()),
+      })
     ),
     async (c) => {
-      const auth = getAuth(c)
+      const auth = getAuth(c);
       const values = c.req.valid("json");
+      console.log("Values: ", values);
 
       if (!auth?.userId) {
-        return c.json({ error: "Unauthorized" }, 401)
+        return c.json({ error: "Unauthorized" }, 401);
       }
-
 
       const data = await db
         .delete(accounts)
@@ -101,9 +100,11 @@ const app = new Hono()
         .returning({
           id: accounts.id,
         });
-      
-      return c.json({ data })
+
+      console.log("Deleted Data:", data);
+
+      return c.json({ data });
     }
-  )
+  );
 
 export default app;
