@@ -30,6 +30,7 @@ export const useBulkDeleteAccounts = () => {
               const errorData = await response.json();
               errorMessage = errorData.error || errorMessage;
             } catch (e) {
+              console.log(e)
               // If we can't parse JSON, use the status text
               errorMessage = response.statusText || errorMessage;
             }
