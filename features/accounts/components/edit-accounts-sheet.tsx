@@ -2,7 +2,8 @@ import { z } from "zod";
 
 import { insertAccountSchema } from "@/db/schema";
 
-import { useCreateAccount } from "@/features/accounts/api/use-create-account";
+
+import { useEditAccount } from "@/features/accounts/api/use-edit-account";
 import { useGetAccount } from "@/features/accounts/api/use-get-account";
 import { AccountForm } from "@/features/accounts/components/account-form";
 import { useOpenAccount } from "@/features/accounts/hooks/use-open-accounts";
@@ -28,14 +29,14 @@ export const EditAccountsSheet = () => {
   
   const { isOpen, onClose, id } = useOpenAccount();
 
-  const mutation = useCreateAccount()
-
   const accountQuery = useGetAccount(id)
-
+  const editMutation = useEditAccount(id)
   const isLoading = accountQuery.isLoading
+  const isPending = editMutation.isPending 
+
 
   const onSubmit = (values: FormValues) => {
-    mutation.mutate(values, {
+    editMutation.mutate(values, {
       onSuccess: () => {
         onClose()
       }
@@ -70,7 +71,7 @@ export const EditAccountsSheet = () => {
             <AccountForm
               id={id}
               onSubmit={onSubmit}
-              disabled={mutation.isPending}
+              disabled={isPending}
               defaultValues={defaultValues}
             />
           )
