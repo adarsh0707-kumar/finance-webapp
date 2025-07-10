@@ -3,7 +3,8 @@ import { handle } from "hono/vercel";
 import { HTTPException } from "hono/http-exception";
 
 import accounts from "./accounts";
-import  categories from "./categories";
+import categories from "./categories";
+import transactions from "./transactions"
 
 
 export const runtime = "edge";
@@ -20,7 +21,8 @@ app.onError((err, c) => {
 // Register accounts routes
 const routes = app
   .route("/accounts", accounts)
-  .route("/categories", categories);
+  .route("/categories", categories)
+  .route("/transactions", transactions);
 
 // Export ALL handlers including PATCH and others you might need
 export const GET = handle(app);
