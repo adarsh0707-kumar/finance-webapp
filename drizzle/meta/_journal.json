@@ -22,6 +22,13 @@
       "when": 1752127128052,
       "tag": "0002_shallow_hawkeye",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1752138724011,
+      "tag": "0003_needy_gargoyle",
+      "breakpoints": true
     }
   ]
 }
