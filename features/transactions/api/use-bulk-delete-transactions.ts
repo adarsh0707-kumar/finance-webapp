@@ -5,33 +5,33 @@ import { InferRequestType, InferResponseType } from "hono";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 
-type ResponseType = InferResponseType<typeof client.api.categories["bulk-delete"]["$post"]>
-type RequestType = InferRequestType<typeof client.api.categories["bulk-delete"]["$post"]>["json"];
+type ResponseType = InferResponseType<typeof client.api.transactions["bulk-delete"]["$post"]>
+type RequestType = InferRequestType<typeof client.api.transactions["bulk-delete"]["$post"]>["json"];
 
 
-export const useBulkDeleteCategories = () => {
+export const useBulkDeleteTransactions = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
       
-        const response = await client.api.categories["bulk-delete"].$post({
+        const response = await client.api.transactions["bulk-delete"].$post({
           json,
         });
-
         return await response.json();
+      
     },
     onSuccess: () => {
-      toast.success("Categories Deleted");
+      toast.success("Transactions Deleted");
       queryClient.invalidateQueries({
-        queryKey: ["categories"],
+        queryKey: ["transactions"],
       });
       // TODO: Also invalidate summary
       
     },
     onError: (err) => {
       console.log("error: ", err);
-      toast.error("Failed to delete categories");
+      toast.error("Failed to delete transactions!");
     },
   });
 
