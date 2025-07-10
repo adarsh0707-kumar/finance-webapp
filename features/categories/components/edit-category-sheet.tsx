@@ -4,11 +4,11 @@ import { Loader2 } from "lucide-react";
 import { useConfirm } from "@/hooks/use-confirm";
 import { insertCategorySchema } from "@/db/schema";
 
-import { useDeleteCategory } from "@/features/categories/api/use-delete-categories";
-import { useEditCategory } from "@/features/categories/api/use-edit-categories";
 import { useGetCategory } from "@/features/categories/api/use-get-category";
 import { CategoryForm } from "@/features/categories/components/category-form";
+import { useEditCategory } from "@/features/categories/api/use-edit-categories";
 import { useOpenCategory } from "@/features/categories/hooks/use-open-categories";
+import { useDeleteCategory } from "@/features/categories/api/use-delete-categories";
 
 import {
   Sheet,

@@ -4,11 +4,11 @@ import { Loader2 } from "lucide-react";
 import { useConfirm } from "@/hooks/use-confirm";
 import { insertAccountSchema } from "@/db/schema";
 
-import { useDeleteAccount } from "@/features/accounts/api/use-delete-account";
-import { useEditAccount } from "@/features/accounts/api/use-edit-account";
 import { useGetAccount } from "@/features/accounts/api/use-get-account";
+import { useEditAccount } from "@/features/accounts/api/use-edit-account";
 import { AccountForm } from "@/features/accounts/components/account-form";
 import { useOpenAccount } from "@/features/accounts/hooks/use-open-accounts";
+import { useDeleteAccount } from "@/features/accounts/api/use-delete-account";
 
 import {
   Sheet,

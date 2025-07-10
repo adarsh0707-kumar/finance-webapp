@@ -1,14 +1,13 @@
 import { z } from "zod";
-
 import { Hono } from "hono";
-import { zValidator } from "@hono/zod-validator";
-import { clerkMiddleware, getAuth } from "@hono/clerk-auth"
-
+import { db } from "@/db/drizzle";
 import { and, eq, inArray } from "drizzle-orm";
 import { createId } from "@paralleldrive/cuid2"
-
-import { db } from "@/db/drizzle";
+import { zValidator } from "@hono/zod-validator";
+import { clerkMiddleware, getAuth } from "@hono/clerk-auth"
 import { categories, insertCategorySchema } from "@/db/schema";
+
+
 
 
 
