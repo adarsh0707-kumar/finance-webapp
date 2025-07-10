@@ -5,9 +5,9 @@ import { columns } from './columns'
 import { Loader2, Plus } from 'lucide-react'
 
 
-import { useNewAccount } from '@/features/accounts/hooks/use-new-account'
-import { useGetAccounts } from '@/features/accounts/api/use-get-accounts'
-import { useBulkDeleteAccounts } from '@/features/accounts/api/use-bulk-delete-accounts'
+import { useNewCategory } from '@/features/categories/hooks/use-new-categories'
+import { useGetCategories } from '@/features/categories/api/use-get-categories'
+import { useBulkDeleteCategories } from '@/features/categories/api/use-bulk-delete-categories'
 
 
 import { Button } from '@/components/ui/button'
@@ -21,17 +21,17 @@ import {
 } from "@/components/ui/card"
 
 
-const AccountsPage = () => {
+const CategoriesPage = () => {
 
-  const newAccount = useNewAccount()
-  const accountQuery = useGetAccounts()
-  const accountDelete = useBulkDeleteAccounts()
+  const newCategory = useNewCategory()
+  const categoryQuery = useGetCategories()
+  const categoriesDelete = useBulkDeleteCategories()
 
 
-  const accounts = accountQuery.data || []
-  const isDisabled = accountQuery.isLoading || accountDelete.isPending
+  const accounts = categoryQuery.data || []
+  const isDisabled = categoryQuery.isLoading || categoriesDelete.isPending
 
-  if (accountQuery.isLoading) {
+  if (categoryQuery.isLoading) {
     return (
       <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
         <Card className="border-none drop-shadow-sm">
@@ -53,10 +53,10 @@ const AccountsPage = () => {
       <Card className="border-none drop-shadow-sm">
         <CardHeader className="gap-y-2 lg:flex  lg:flex-row lg:items-center lg:justify-between">
           <CardTitle className="text-xl line-clamp-1">
-            Accounts Page
+            Categories Page
           </CardTitle>
           <Button
-            onClick={newAccount.onOpen}
+            onClick={newCategory.onOpen}
             size="sm"
           >
             <Plus className="size-4 mr-2" />
@@ -71,7 +71,7 @@ const AccountsPage = () => {
             data={accounts}
             onDelete={(row) => {
               const ids = row.map((r) => r.original.id)
-              accountDelete.mutate({ ids });
+              categoriesDelete.mutate({ ids });
              }}
             disabled={isDisabled}
           />
@@ -81,4 +81,4 @@ const AccountsPage = () => {
   )
 }
 
-export default AccountsPage
+export default CategoriesPage
