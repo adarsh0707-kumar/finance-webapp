@@ -177,7 +177,6 @@ export const TransactionForm = ({
                   disabled={disabled}
                   placeholder="Optional notes"
                 />
-
               </FormControl>
             </FormItem>
           )}
