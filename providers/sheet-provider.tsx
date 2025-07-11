@@ -5,6 +5,7 @@ import { NewAccountsSheet } from "@/features/accounts/components/new-accounts-sh
 import { EditAccountsSheet } from "@/features/accounts/components/edit-accounts-sheet"
 import { NewCategoriesSheet } from "@/features/categories/components/new-category-sheet"
 import { EditCategoriesSheet } from "@/features/categories/components/edit-category-sheet"
+import { NewTransactionsSheet } from "@/features/transactions/components/new-transactions-sheet"
 
 
 export const SheetProvider = () => {
@@ -20,6 +21,8 @@ export const SheetProvider = () => {
       
       <NewCategoriesSheet />
       <EditCategoriesSheet />
+
+      <NewTransactionsSheet />
     </>
   )
 }
