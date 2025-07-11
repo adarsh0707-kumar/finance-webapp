@@ -15,10 +15,6 @@ import { useOpenAccount } from "@/features/accounts/hooks/use-open-accounts"
 import { useConfirm } from "@/hooks/use-confirm"
 
 
-// type Props = {
-//   id: string
-// }
-
 export const Actions = ({ id }) => {
 
   const [ConfirmDialog, confirm] = useConfirm(

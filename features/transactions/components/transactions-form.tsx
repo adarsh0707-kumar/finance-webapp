@@ -3,12 +3,14 @@ import { Trash } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { insertTransactionSchema } from "@/db/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { convertAmountToMiliunits } from "@/lib/utils"
 
 import { Select } from "@/components/select"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { DatePicker } from "@/components/date-picker"
+import { AmountInput } from "@/components/amount-input"
 import {
   Form,
   FormControl,
@@ -64,8 +66,16 @@ export const TransactionForm = ({
   })
 
   const handleSubmit = (values: FormValues) => {
-    // onSubmit(values)
-    console.log({values})
+    const amount = parseFloat(values.amount)
+    const amountInMiliunits = convertAmountToMiliunits(amount)
+
+    console.log("values", values)
+    onSubmit({
+      ...values,
+      amount: amountInMiliunits
+    })
+
+    
   }
   const handleDelete = () => {
     onDelete?.()
@@ -152,9 +162,31 @@ export const TransactionForm = ({
               </FormLabel>
               <FormControl>
                 <Input
+                  {...field}
+                  value={field.value ?? ""}
                   disabled={disabled}
                   placeholder="Add a payee"
+                />
+
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="amount"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="mt-4">
+                Amount
+              </FormLabel>
+              <FormControl>
+                <AmountInput
                   {...field}
+                  onChange={field.onChange}
+                  disabled={disabled}
+                  placeholder="0.00"
                 />
 
               </FormControl>
