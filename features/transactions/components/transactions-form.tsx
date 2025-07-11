@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Select } from "@/components/select"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Textarea } from "@/components/ui/textarea"
 import { DatePicker } from "@/components/date-picker"
 import {
   Form,
@@ -154,6 +155,27 @@ export const TransactionForm = ({
                   disabled={disabled}
                   placeholder="Add a payee"
                   {...field}
+                />
+
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="notes"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="mt-4">
+                Notes
+              </FormLabel>
+              <FormControl>
+                <Textarea
+                  {...field}
+                  value={field.value ?? ""}
+                  disabled={disabled}
+                  placeholder="Optional notes"
                 />
 
               </FormControl>
