@@ -4,8 +4,10 @@ import { useForm } from "react-hook-form"
 import { insertTransactionSchema } from "@/db/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 
+import { Select } from "@/components/select"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { DatePicker } from "@/components/date-picker"
 import {
   Form,
   FormControl,
@@ -13,7 +15,6 @@ import {
   FormItem,
   FormLabel
 } from "@/components/ui/form"
-import { Select } from "@/components/select"
 
 
 const formSchema = z.object({
@@ -77,12 +78,29 @@ export const TransactionForm = ({
         }
         className="ml-4 mr-4 pt-4"
       >
+
+        <FormField
+          name="date"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <DatePicker
+                  value={field.value}
+                  onChange={field.onChange}
+                  disabled={disabled}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
         <FormField
           name="accountId"
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
+              <FormLabel className="mt-4">
                 Account
               </FormLabel>
               <FormControl>
@@ -116,6 +134,26 @@ export const TransactionForm = ({
                   value={field.value}
                   onChange={field.onChange}
                   disabled={disabled}
+                />
+
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="payee"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="mt-4">
+                Payee
+              </FormLabel>
+              <FormControl>
+                <Input
+                  disabled={disabled}
+                  placeholder="Add a payee"
+                  {...field}
                 />
 
               </FormControl>
